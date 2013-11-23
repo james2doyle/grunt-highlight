@@ -25,11 +25,13 @@ In your project's Gruntfile, add a section named `highlight` to the data object 
 ```js
 grunt.initConfig({
   highlight: {
-    options: {
-      // Task-specific options go here.
-    },
-    your_target: {
-      // Target-specific file lists and/or options go here.
+    task: {
+      options: {
+        // Task-specific options go here.
+      },
+      your_target: {
+        // Target-specific file lists and/or options go here.
+      }
     }
   }
 });
@@ -62,9 +64,11 @@ This is what cheerio will be looking for as code block in your HTML. *Only used 
 ```js
 grunt.initConfig({
   highlight: {
-    options: {},
-    files: {
-      'dest/out.html': ['src/in.html'],
+    task: {
+      options: {},
+      files: {
+        'dest/out.html': ['src/in.html'],
+      }
     }
   }
 })
@@ -77,12 +81,14 @@ If you want to highlight an entire file then use the following:
 ```js
 grunt.initConfig({
   highlight: {
-    options: {
-      useCheerio: false,
-      lang: 'javascript' // treat the file as a javascript file
-    },
-    files: {
-      'dest/highlighted.html': ['src/bunch-o-javascript.js'],
+    task: {
+      options: {
+        useCheerio: false,
+        lang: 'javascript' // treat the file as a javascript file
+      },
+      files: {
+        'dest/highlighted.html': ['src/bunch-o-javascript.js'],
+      }
     }
   }
 })
