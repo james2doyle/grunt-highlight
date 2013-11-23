@@ -71,7 +71,7 @@ grunt.initConfig({
       }
     }
   }
-})
+});
 ```
 
 #### Full Code Files
@@ -91,7 +91,34 @@ grunt.initConfig({
       }
     }
   }
-})
+});
+```
+
+#### Many Files
+
+```js
+grunt.initConfig({
+  highlight: {
+    scripts: {
+      options: {
+        useCheerio: false,
+        lang: 'javascript'
+      },
+      files: {
+        'javascript.html': ['src/script.js']
+      }
+    },
+    styles: {
+      options: {
+        useCheerio: false,
+        lang: 'css'
+      },
+      files: {
+        'stylesheet.html': ['src/style.css']
+      }
+    }
+  }
+});
 ```
 
 ## Contributing
