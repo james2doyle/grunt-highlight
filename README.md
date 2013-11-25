@@ -94,7 +94,32 @@ grunt.initConfig({
 });
 ```
 
-#### Many Files
+#### One-to-One Compilation
+
+Sometimes you want to take in a folder of code, and output a folder of highlighted HTML.
+
+```js
+highlight: {
+  scripts: {
+    options: {
+      useCheerio: false, // these are pure js files
+      lang: 'javascript' // there is no auto-detect for files
+    },
+    files: [{
+      expand: true,
+      cwd: 'scripts', // in folder
+      src: ['{,*/}*.js'],
+      dest: 'html', // out folder
+      rename: function(dest, src) {
+        // we dont want the output to be .js, make it .html
+        return dest + '/' + src.replace(/\.js$/, '.html');
+      }
+    }]
+  }
+}
+```
+
+#### Many Tasks
 
 ```js
 grunt.initConfig({
