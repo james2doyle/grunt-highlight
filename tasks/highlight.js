@@ -42,11 +42,26 @@
           // highlight code block
           return hljs.highlight(options.lang, grunt.file.read(filepath)).value;
         } else if (options.useCheerio) {
+
           // load the file for cheerio
-          var $ = cheerio.load(grunt.file.read(filepath));
+          // don't decode html, causes issues when highlighting javascript
+          // embedded in html
+          var $ = cheerio.load(grunt.file.read(filepath), {
+            decodeEntities: false
+          });
           $(options.selector).each(function(i, elem) {
-            // store the new value based on auto or options.lang
-            var val = (!options.lang) ? hljs.highlightAuto($(this).html()).value : hljs.highlight(options.lang, $(this).html()).value;
+            // code to highlight
+            var code = $(this).html(), val;
+            // lang provided in gruntfile
+            if (options.lang) {
+              val = hljs.highlight(options.lang, code).value;
+            // lang provided in code tag :  <code class="lang">
+            } else if (elem.attribs.class != undefined) {
+              val = hljs.highlight(elem.attribs.class, code).value;
+            // lang not provided
+            } else {
+              val = hljs.highlightAuto(code).value;
+            }
             // write that new value in there
             $(this).html(val);
           });
@@ -64,6 +79,6 @@
       // Print a success message.
       grunt.log.writeln('File "' + file.dest + '" created.');
     });
-});
+  });
 
 };
